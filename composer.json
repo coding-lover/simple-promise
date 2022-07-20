@@ -1,0 +1,20 @@
+{
+    "name": "coding-lover/simple-promise",
+    "description": "An simple promise",
+    "keywords": ["promise", "deferred", "reject", "resolve", "resolver", "cancel", "canceller"],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "CodingLover\\SimplePromise\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "wmc",
+            "email": "wmc@phix.cn"
+        }
+    ],
+    "require": {
+        "php": "^7.0 || ^8.0"
+    }
+}
