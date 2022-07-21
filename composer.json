@@ -1,6 +1,6 @@
 {
     "name": "skelan/simple-promise",
-    "description": "An simple promise",
+    "description": "A lightweight implementation of CommonJS Promises/A for PHP",
     "keywords": ["promise", "deferred", "reject", "resolve", "resolver", "cancel", "canceller"],
     "license": "MIT",
     "autoload": {
@@ -8,13 +8,16 @@
             "Skelan\\SimplePromise\\": "src/"
         }
     },
+    "autoload-dev": {
+
+    },
+    "require": {
+        "php": "^7.0 || ^8.0"
+    },
     "authors": [
         {
             "name": "wmc",
-            "email": "wmc@phix.cn"
+            "email": "wmcong2020@163.com"
         }
-    ],
-    "require": {
-        "php": "^7.0 || ^8.0"
-    }
+    ]
 }
