@@ -1,6 +1,6 @@
 {
     "name": "skelan/simple-promise",
-    "description": "A lightweight implementation of CommonJS Promises/A for PHP",
+    "description": "A promise package that it is lightweight implementation",
     "keywords": ["promise", "deferred", "reject", "resolve", "resolver", "cancel", "canceller"],
     "license": "MIT",
     "autoload": {
