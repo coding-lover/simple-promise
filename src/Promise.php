@@ -61,9 +61,10 @@ class Promise implements PromiseInterface
             // check onRejected parameter type
             $refFunc = new \ReflectionFunction($node->getOnRejected());
             $parameters = $refFunc->getParameters();
+
             if(empty($parameters[0])
                 || !$parameters[0]->getClass()
-                || !$parameters[0]->getClass()->isInstance($exception)
+                || (!$parameters[0]->getClass()->isInstance($exception) && !(new \ReflectionClass($exception))->isSubclassOf(\Error::class))
             ) {
                 return true;
             }
