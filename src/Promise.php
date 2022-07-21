@@ -99,12 +99,12 @@ class Promise implements PromiseInterface
         return $this->resolveCall($nextNode, $result);
     }
 
-    public function otherwise(callable $onRejected)
+    public function otherwise(callable $onRejected): PromiseInterface
     {
         return $this->then(null, $onRejected);
     }
 
-    public function always(callable $onFulfilledOrRejected)
+    public function always(callable $onFulfilledOrRejected): PromiseInterface
     {
         return $this->then($onFulfilledOrRejected);
     }
@@ -112,7 +112,7 @@ class Promise implements PromiseInterface
     /**
      * @inheritDoc
      */
-    public function then(callable $onFulfilled = null, callable $onRejected = null, callable $onProgress = null) : PromiseInterface
+    public function then(callable $onFulfilled = null, callable $onRejected = null, callable $onProgress = null): PromiseInterface
     {
         $promise = new PromiseNode($onFulfilled, $onRejected);
 
