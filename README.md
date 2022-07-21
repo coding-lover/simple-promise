@@ -31,7 +31,7 @@ A deferred represents an operation whose resolution is pending. It has separate
 promise and resolver parts.
 
 ```php
-$deferred = new React\Promise\Deferred();
+$deferred = new Skelan\SimplePromise\Deferred();
 
 $promise = $deferred->promise();
 
@@ -56,7 +56,7 @@ Each call to `then()` returns a new promise that will resolve with the return
 value of the previous handler. This creates a promise "pipeline".
 
 ```php
-$deferred = new React\Promise\Deferred();
+$deferred = new Skelan\SimplePromise\Deferred();
 
 $deferred->promise()
     ->then(function ($x) {
@@ -96,7 +96,7 @@ Similarly, when you handle a rejected promise, to propagate the rejection,
 (since promise translates thrown exceptions into rejections)
 
 ```php
-$deferred = new React\Promise\Deferred();
+$deferred = new Skelan\SimplePromise\Deferred();
 
 $deferred->promise()
     ->then(function ($x) {
@@ -105,12 +105,6 @@ $deferred->promise()
     ->otherwise(function (\Exception $x) {
         // Propagate the rejection
         throw $x;
-    })
-    ->otherwise(function (\Exception $x) {
-        // Can also propagate by returning another rejection
-        return React\Promise\reject(
-            new \Exception($x->getMessage() + 1)
-        );
     })
     ->otherwise(function ($x) {
         echo 'Reject ' . $x->getMessage(); // 3
