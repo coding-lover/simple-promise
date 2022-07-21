@@ -53,6 +53,8 @@ class Promise implements PromiseInterface
 
     private function makeException(\Throwable $exception)
     {
+        $this->triggerError($exception);
+
         return function (?PromiseNode $node) use($exception) {
             if(!$node instanceof PromiseNode || !is_callable($node->getOnRejected())) {
                 return false;
@@ -64,13 +66,22 @@ class Promise implements PromiseInterface
 
             if(empty($parameters[0])
                 || !$parameters[0]->getClass()
-                || (!$parameters[0]->getClass()->isInstance($exception) && !(new \ReflectionClass($exception))->isSubclassOf(\Error::class))
+                || (!$parameters[0]->getClass()->isInstance($exception))
             ) {
                 return true;
             }
 
             $node->getOnRejected()($exception);
         };
+    }
+
+    private function triggerError($exception)
+    {
+        if((new \ReflectionClass($exception))->isSubclassOf(\Error::class)) {
+            return trigger_error($exception->getMessage(), E_USER_ERROR);
+        }
+
+        return true;
     }
 
     private function resolveCall(?PromiseNode $node, callable $resolver)
