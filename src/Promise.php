@@ -1,5 +1,5 @@
 <?php
-namespace CodingLover\SimplePromise;
+namespace Skelan\SimplePromise;
 
 
 class Promise implements PromiseInterface

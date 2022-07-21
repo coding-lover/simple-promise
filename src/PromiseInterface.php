@@ -1,5 +1,5 @@
 <?php
-namespace CodingLover\SimplePromise;
+namespace Skelan\SimplePromise;
 
 
 interface PromiseInterface

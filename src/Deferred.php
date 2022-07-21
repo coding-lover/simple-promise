@@ -1,6 +1,6 @@
 <?php
 
-namespace CodingLover\SimplePromise;
+namespace Skelan\SimplePromise;
 
 class Deferred
 {
