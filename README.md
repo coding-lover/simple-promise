@@ -7,6 +7,20 @@ It also provides several other useful promise-related concepts, such as joining 
 
 This file mostly code come from [react/promise](https://github.com/reactphp/promise), thanks reactphp Team provide such a useful package.
 
+Installation
+--------
+Make sure that you have composer installed [Composer](http://getcomposer.org/).
+
+If you don't have Composer run the below command
+
+```php
+curl -sS https://getcomposer.org/installer | php
+```
+Run the installation
+```php
+composer require skelan/simple-promise
+```
+
 Concepts
 --------
 
@@ -112,3 +126,70 @@ $deferred->promise()
 
 $deferred->resolve(1);  // Prints "Reject 3"
 ```
+
+### Best practices
+#### 1) Try/catch demo
+Just like try/catch, you can choose to propagate or not. Mixing resolutions and
+rejections will still forward handler results in a predictable way.
+```php 
+try {
+  return doSomething();
+} catch(\Exception $e) {
+    return handleError($e);
+} finally {
+    cleanup();
+}
+```
+
+```php
+$deferred = new Skelan\SimplePromise\Deferred();
+
+$deferred->promise()
+    ->then(function ($x) {
+        return $x + 1;
+    })
+    ->then(function ($x) {
+        throw new \Exception($x + 1);
+    })
+    ->otherwise(function (\Exception $x) {
+        return $x->getMessage() + 1;
+    })
+    ->then(function ($x) {
+        echo 'Mixed ' . $x; // 4
+    });
+
+$deferred->resolve(1);  // Prints "Mixed 4"
+```
+
+#### 2) Asynchronous call
+[swoole is awesome extension of php](https://github.com/swoole/swoole-src) 
+```php 
+function remoteRequest() {
+    $deferred = new \Skelan\SimplePromise\Deferred(function (\Skelan\SimplePromise\PromiseInterface $promise) {
+        var_dump('call cancel.');
+    });
+
+    \Swoole\Timer::after(1000, function() use($deferred) {
+        $deferred->resolve('finish: ' . time());
+    });
+
+    return $deferred->promise();
+}
+
+remoteRequest()->then(function ($value) {
+    var_dump('resolve: ' . time());
+    var_dump($value);
+    throw new \Exception('xxx');
+}, function($reason) {
+    var_dump($reason);
+})->otherwise(function(\Throwable $exception) {
+    var_dump('exception: ' . $exception->getMessage());
+})->always(function($value) {
+    var_dump('otherwise: ' . $value);
+});
+```
+
+License
+-------
+
+Released under the [MIT](LICENSE) license.
