@@ -1,5 +1,5 @@
 {
-    "name": "coding-lover/simple-promise",
+    "name": "skelan/simple-promise",
     "description": "An simple promise",
     "keywords": ["promise", "deferred", "reject", "resolve", "resolver", "cancel", "canceller"],
     "license": "MIT",
