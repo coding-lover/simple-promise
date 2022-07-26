@@ -135,7 +135,7 @@ try {
 } catch(\Exception $e) {
     return handleError($e);
 } finally {
-    cleanup();
+    doFinally();  
 }
 ```
 
@@ -149,14 +149,16 @@ $deferred->promise()
     ->then(function ($x) {
         throw new \Exception($x + 1);
     })
-    ->otherwise(function (\Exception $x) {
-        return $x->getMessage() + 1;
+    ->otherwise(function (\Exception $x) { 
+        //catch exception 
+        var_dump('otherwise: ' . ($x->getMessage() + 1)); //4
     })
-    ->then(function ($x) {
-        echo 'Mixed ' . $x; // 4
+    ->always(function () { 
+        //finally
+        var_dump('finally ');
     });
 
-$deferred->resolve(1);  // Prints "Mixed 4"
+$deferred->resolve(1); 
 ```
 
 #### 2) Asynchronous call
