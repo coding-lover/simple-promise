@@ -3,8 +3,6 @@ Promise
 
 A lightweight implementation of [CommonJS Promises/A](http://wiki.commonjs.org/wiki/Promises/A) for PHP.
 
-It also provides several other useful promise-related concepts, such as joining multiple promises and mapping and reducing collections of promises.
-
 This file mostly code come from [react/promise](https://github.com/reactphp/promise), thanks reactphp Team provide such a useful package.
 
 Installation
